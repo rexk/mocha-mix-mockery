@@ -1,0 +1,27 @@
+{
+  "name": "mocha-mix-mockery",
+  "version": "0.0.0-rc",
+  "description": "mocha-mix-mockery",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "myungsunrex@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "mockery": "^1.4.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rexk/mocha-mix-mockery.git"
+  },
+  "keywords": [
+    "mocha",
+    "mocha-mix"
+  ],
+  "bugs": {
+    "url": "https://github.com/rexk/mocha-mix-mockery/issues"
+  },
+  "homepage": "https://github.com/rexk/mocha-mix-mockery#readme"
+}
