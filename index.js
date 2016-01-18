@@ -1,7 +1,7 @@
 var mockery = require('mockery');
 
-function registerMock(descriptor) {
-  mockery.enable(descriptor.import, descriptor.mock);
+function registerMock(mockDescription) {
+  mockery.registerMock(mockDescription.import, mockDescription.mock);
 }
 
 function registerIgnoreList(ignoreList) {
@@ -12,36 +12,42 @@ function registerIgnoreList(ignoreList) {
 module.exports = function createPlugin(options) {
   options = options || {};
 
-  return function mockeryPlugin(manager) {
-    var createMixHook = manager.createMixHook;
+  return function mockeryPlugin(mochaMix) {
+    var MixHook = mochaMix.MixHook;
 
-    manager.before(function mockeryBefore() {
+    mochaMix.before(function mockeryBefore() {
       mockery.enable({
         useCleanCache: true,
         warnOnReplace: false,
         warnOnUnregistered: false
       });
-
-      registerIgnoreList(options.ignore);
     });
 
-    mockery.after(function mockeryAfter() {
-      mockery.deregisterAll();
-      mockery.disable()
-    });
-
-    mockery.before(createMixHook(function (mixer) {
+    mochaMix.beforeEach(MixHook(function (mixer) {
       return function registerHook() {
-        (mixer.mocks || []).forEach(function (descriptor) {
-          var mockName = descriptor.mockName;
-          var importPath = descriptor.import;
-          var mock = descriptor.mock({
-            mockName: mockName
-          });
+        registerIgnoreList(options.ignore);
+
+        (mixer.recipe.mocks || []).forEach(function registerMixMock(mockDescription) {
+          var mockName = mockDescription.mockName;
+          var mock = mockDescription.mock(mockDescription);
           mixer.registerMock(mockName, mock);
-          mockery.registerMock(importPath, mock);
+          registerMock({
+            import: mockDescription.import,
+            mock: mock
+          });
         });
       };
     }));
+
+    mochaMix.afterEach(MixHook(function (mixer) {
+      return function mockeryAfterEach() {
+        mixer.clearAllMocks();
+        mockery.deregisterAll();
+      };
+    }));
+
+    mochaMix.after(function mockeryAfter() {
+      mockery.disable()
+    });
   }
 };
