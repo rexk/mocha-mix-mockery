@@ -44,5 +44,5 @@ module.exports = function createPlugin(options) {
         mockery.disable();
       };
     }));
-  }
+  };
 };

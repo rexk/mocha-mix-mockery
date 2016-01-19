@@ -17,7 +17,8 @@
     "no-trailing-spaces": 0,
     "new-parens": 0,
     "no-cond-assign": 0,
-    "quotes": 0
+    "quotes": 0,
+    "semi": [2, 'always']
   },
 
   "env": {
