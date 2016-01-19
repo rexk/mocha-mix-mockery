@@ -15,16 +15,14 @@ module.exports = function createPlugin(options) {
   return function mockeryPlugin(mochaMix) {
     var MixHook = mochaMix.MixHook;
 
-    mochaMix.before(function mockeryBefore() {
-      mockery.enable({
-        useCleanCache: true,
-        warnOnReplace: false,
-        warnOnUnregistered: false
-      });
-    });
+    mochaMix.before(MixHook(function (mixer) {
+      return function mockeryBefore() {
+        mockery.enable({
+          useCleanCache: true,
+          warnOnReplace: false,
+          warnOnUnregistered: false
+        });
 
-    mochaMix.beforeEach(MixHook(function (mixer) {
-      return function registerHook() {
         registerIgnoreList(options.ignore);
 
         (mixer.recipe.mocks || []).forEach(function registerMixMock(mockDescription) {
@@ -39,15 +37,12 @@ module.exports = function createPlugin(options) {
       };
     }));
 
-    mochaMix.afterEach(MixHook(function (mixer) {
-      return function mockeryAfterEach() {
+    mochaMix.after(MixHook(function (mixer) {
+      return function mockeryAfter() {
         mixer.clearAllMocks();
         mockery.deregisterAll();
+        mockery.disable();
       };
     }));
-
-    mochaMix.after(function mockeryAfter() {
-      mockery.disable()
-    });
   }
 };
