@@ -18,7 +18,8 @@
     "new-parens": 0,
     "no-cond-assign": 0,
     "quotes": 0,
-    "semi": [2, 'always']
+    "semi": [2, 'always'],
+    "no-extra-semi": 2
   },
 
   "env": {

@@ -2,9 +2,12 @@
   "name": "mocha-mix-mockery",
   "version": "0.0.1-alpha.3",
   "description": "mocha-mix-mockery",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "istanbul cover _mocha $(find ./lib -name *.test.js)",
+    "test:simple": "mocha $(find ./lib -name *.test.js)",
+    "test:watch": "mocha --watch $(find ./lib -name *.test.js)",
+    "eslint": "eslint ./lib"
   },
   "author": "myungsunrex@gmail.com",
   "license": "MIT",
@@ -13,7 +16,11 @@
   },
   "devDependencies": {
     "babel-eslint": "^5.0.0-beta6",
-    "eslint": "^1.10.3"
+    "eslint": "^1.10.3",
+    "expect": "^1.13.4",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.3.4",
+    "mocha-mix": "^1.0.0-alpha.0"
   },
   "repository": {
     "type": "git",

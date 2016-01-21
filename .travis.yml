@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - '4.1'
+  - '4.0'
+addons:
+  code_climate:
+    repo_token: d5ecf7e1cbdc5743de2316a68c72f7dec90a7f0de35c4f953fdf67ce8b237db7
+after_success:
+  - npm install codeclimate-test-reporter
+after_script:
+  - codeclimate-test-reporter < coverage/lcov.info
+deploy:
+  provider: npm
+  email: myungsunrex@gmail.com
+  api_key:
+    secure: Edusf8b0Jbi03WoYrETC4YrTNvBGP9jxauJ4wz/+isb63lR9JPUK38rm5prN/0GLROn1Pyi3Gxe67al4u8GXoi5Ec8Dif3psXJn1MokvpMX83jMLqM0ztEZ+1XciZM13HBQa6ae+bA8cu96+ENMTVLxIrOLBKWPklqiuA4EgQTjZ/c1HE6xvYUgCl89InJGoAmeWV4BdwEqfqONvzisokoJO1yg9/Et8oFgeKS4/22UwvbpCf7jUzbIIy+lIeVbznz3Ch7gzPCRlNThofemM4SS9GGT5XSq4EDM4lpV/tgmAEUNfVv0omRjrSaZpper56Y76MfyF5YxCI1JmaKvtvgpG7qP4RmEJ8NuAkwgknAdMSzJDF9WDwm75y5PEvvVePKQlJYHAzCtuIjE771tx7w2bvkPBf7xG/geFO8uAQUPLXj807waYH9/L1K8//rLldsL7WqWwpqK2UQIDjkS8d0WUixdo4/x+9iT90LHMACFsB9R0oG1lh3Y0lSxoKayNQCYjmf/Aq709EJ1iTtbeGI/m+1DVn1F4QmVFkI8ke3zVKAVOR7zkHBbeVPZ6pPnOddBm/7MizR0s/JJv3Ye/nHkUwkunNpxuNnO1i3DsVtstSUm2o9cg5dzRMGQqV+byakd8JUF2hnzwwjwn4Yfl8vu0SpxuwZGRYiX5kClqW/U=
+  on:
+    tags: true
+    repo: rexk/mocha-mix-jsdom
