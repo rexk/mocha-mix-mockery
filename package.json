@@ -1,6 +1,6 @@
 {
   "name": "mocha-mix-mockery",
-  "version": "0.0.1-alpha.3",
+  "version": "0.0.1-alpha.4",
   "description": "mocha-mix-mockery",
   "main": "lib/index.js",
   "scripts": {
